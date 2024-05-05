@@ -99,3 +99,7 @@ class SqliteModel:
                     squad[pretty_key] = squad.pop(key)
 
         return squads
+
+    def name2tags(self, name: str) -> list[dict]:
+        v = self.get_db().execute(sqlite_sql_requests.name2tags, {'name': name}).fetchall()
+        return v

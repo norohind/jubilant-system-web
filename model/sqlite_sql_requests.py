@@ -43,3 +43,12 @@ from squadrons_current_data
 where tag like :tag 
 order by platform;
 """
+
+name2tags = """select
+    platform,
+    squad_id,
+    updated as updated_at,
+    name,
+    tag
+from squadrons_current_data
+where lower(name) = lower(:name);"""

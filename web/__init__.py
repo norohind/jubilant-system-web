@@ -67,6 +67,11 @@ class SquadsInfoByTag:
         resp.text = json.dumps(model_answer)
 
 
+class SquadsName2Tags:
+    def on_get(self, req: falcon.request.Request, resp: falcon.response.Response, name: str):
+        resp.content_type = falcon.MEDIA_JSON
+        resp.text = json.dumps(model.name2tags(name))
+
 class AppFixedLogging(falcon.App):
     def _python_error_handler(self, req: falcon.request.Request, resp: falcon.response.Response, error, params):
         __exception__ = error
@@ -79,6 +84,7 @@ application.add_route('/squads/now/by-tag/{details_type}/{tag}', SquadsInfoByTag
 
 application.add_route('/api/squads/now/by-tag/{details_type}/{tag}', SquadsInfoByTag(is_pattern=False))
 application.add_route('/api/squads/now/search/by-tag/{details_type}/{tag}', SquadsInfoByTag(is_pattern=True))
+application.add_route('/api/squads/now/by-name/{name}', SquadsName2Tags())
 
 if __name__ == '__main__':
     import waitress
